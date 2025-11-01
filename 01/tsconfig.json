@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                  // Modern JavaScript target
+    "module": "ESNext",                  // Module system (e.g. for bundlers or Node ESM)
+    "moduleResolution": "bundler",         // Modern module resolution strategy
+    "esModuleInterop": true,             // Allow default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,                      // Enable all strict type-checking options
+    "skipLibCheck": true,                // Skip type checking of declaration files
+    "outDir": "dist",                    // Output directory for compiled files
+    "rootDir": "src",                    // Root directory of TypeScript source
+    "allowJs": false,                    // Disallow plain JS files (set to true if needed)
+    "noEmit": false                      // Set to true if you only want type checking
+  },
+  "include": ["src"],                    // Include all files in 'src' directory
+  "exclude": ["node_modules", "dist"]   // Exclude generated/third-party code
+}
