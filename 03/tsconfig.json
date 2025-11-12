@@ -1,19 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "nodenext",
-    "sourceMap": false,
-    "strict": true,
-    "outDir": "dist",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "moduleResolution": "nodenext"
-  },
-  "include": [
-    "src"
-  ], // Include all files in 'src' directory
-  "exclude": [
-    "node_modules",
-    "dist"
-  ] // Exclude generated/third-party code
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "nodenext",
+		"sourceMap": false,
+		"strict": true,
+		"outDir": "dist",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"moduleResolution": "nodenext",
+		"noImplicitOverride": true
+	},
+	"include": [
+		"src"
+	], // Include all files in 'src' directory
+	"exclude": [
+		"node_modules",
+		"dist"
+	] // Exclude generated/third-party code
 }
