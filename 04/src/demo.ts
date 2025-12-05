@@ -1,108 +1,77 @@
-// function getFirstElement<DataType>(arr: DataType[]): DataType {
-// 	return arr[0];
-// }
+// ! Generic function with one type parameter
+function getFirstElement<T>(arr: T[]): T {
+	return arr[0];
+}
 
-// const firstEl = getFirstElement<string>(["kiril", "pencho"]);
+// console.log(getFirstElement(["kiril", "dim4o"]));
+// console.log(getFirstElement([6, 7]));
+// console.log(getFirstElement([true, false]));
 
-// console.log(firstEl.length);
+// ! Generic function with 2 type parameters
+function makeTuple<T, U>(el1: T, el2: U): [T, U] {
+	return [el1, el2];
+}
 
-// const firstNumEl = getFirstElement<number>([45, 11, 35]);
+const tupleEls = makeTuple<string, number>("kiril", 67);
+// console.log(tupleEls)
 
-// console.log(firstNumEl.toFixed(2));
+// ! Generic interface
+interface Message<T> {
+	sender: string;
+	recipient: string;
+	data: T;
+}
 
-// function makeTuple<T, U>(a: T, b: U): [T, U] {
-// 	return [a, b];
-// }
+const message1: Message<string> = {
+	sender: "Kiril",
+	recipient: "CIA",
+	data: "Info",
+};
 
-// const tupleOne = makeTuple<string, number>("kiril", 24);
+const message2: Message<{ text: string; timestamp: Date }> = {
+	sender: "Kiril",
+	recipient: "Joe",
+	data: { text: "Hello", timestamp: new Date() },
+};
 
-// console.log(tupleOne);
+// console.log(message2.data.timestamp)
 
-// const tupleTwo = makeTuple<number, boolean>(67, true);
-// console.log(tupleTwo);
+// ! Generic type constraints
 
-// // ! Generic Interface
+function logItemId<T extends { id: number }>(item: T): void {
+	console.log(item);
+}
 
-// interface Message<T> {
-// 	sender: string;
-// 	recipient: string;
-// 	data: T;
-// }
+// logItemId('kiril')
+// logItemId(234)
+// logItemId({name: 'Kiril'})
 
-// type MessageDataType = {
-// 	text: string;
-// 	timestamp: number;
-// };
+// logItemId({id: 2, name: 'Kiril', age: 24})
+// logItemId({id: 2, name: 'Kiril', age: 24, email: "akjlshbd"})
 
-// const messageOne: Message<string> = {
-// 	sender: "Kiril",
-// 	recipient: "Joe",
-// 	data: "Hello, there",
-// };
+// ! Generic class with 1 type parameter
+// storageBoxDemo.ts
 
-// const messageTwo: Message<MessageDataType> = {
-// 	sender: "min4o",
-// 	recipient: "penka",
-// 	data: { text: "Hi whats up", timestamp: 19782369 },
-// };
-
-// console.log(messageTwo.data);
-
-// console.log(`----------------------`);
-
-// // ! Generic type constraints
-// function logItemId<T extends {id: number}>(item: T): void {
-// 	console.log(item);
-// }
-
-// // logItemId("pen4o");
-// // logItemId(23);
-// // logItemId({ name: "Kiril" });
-// logItemId({ id: 1, name: "Kiril", age: 24 });
-
-// ! Generic Class with 1 type param
-
-class StorageBox<T> {
-	items: T[] = [];
-
-	constructor(initialItems: T[]) {
-		this.items = initialItems;
+class UserInput<F, S, T> {
+	first: F;
+	second: S;
+	third: T;
+	constructor(f: F, s: S, t: T) {
+		this.first = f;
+		this.second = s;
+		this.third = t;
 	}
 
-	getAll(): T[] {
-		return this.items;
-	}
-
-	getFirstItem(): T {
-		return this.items[0];
-	}
-
-	add(newItem: T): void {
-		this.items.push(newItem);
-	}
-
-	reverse(): void {
-		this.items.reverse();
-	}
-
-	removeItem(item: T): void {
-		const index = this.items.indexOf(item);
-
-		if (index > -1) {
-			this.items.splice(index, 1);
-		}
+	showAll() {
+		return `First: ${this.first}, second ${this.second}, third: ${this.third}`;
 	}
 }
 
-const storage = new StorageBox<number>([1, 2, 3, 4, 5, 6, 7, 8]);
-// console.log(storage.getAll());
-// console.log(storage.getFirstItem());
-// storage.add(9);
-// console.log(storage.getAll());
-// storage.reverse();
-// console.log(storage.getAll());
-// storage.removeItem(3);
-// console.log(storage.getAll());
+const input = new UserInput("six", 7, 9);
+const test = new UserInput("joe", true, 9);
+
+// console.log(input.showAll());
+// console.log(test.showAll());
 
 class ApiResponse<T, U> {
 	isSuccessful: boolean;
@@ -116,27 +85,24 @@ class ApiResponse<T, U> {
 	}
 
 	getResult(): T {
-		if (!this.isSuccessful || this.data == null) {
+		if (!this.isSuccessful || this.data === null) {
 			throw new Error(String(this.error));
 		}
-
 		return this.data;
 	}
 }
 
-const userResponse1 = new ApiResponse<string, string>(true, "Joe", null);
-const userResponse2 = new ApiResponse<string[], string>(
-	true,
-	["kiril", "joe"],
-	null
-);
+// const userResponse = new ApiResponse<string, string>(true, 'Kiril', 'no error')
+// console.log(userResponse.getResult())
+// const userResponse = new ApiResponse<string, string>(false, 'Kiril', 'The request was unsuccessful')
+// console.log(userResponse.getResult())
+const userResponse = new ApiResponse(true, [1, 2, 3, 4], null);
 const userResponse3 = new ApiResponse(false, null, "Unknown Error");
 
-// console.log(userResponse2.getResult())
+// console.log(userResponse.getResult())
 // console.log(userResponse3.getResult())
 
-// ! Mapped types using generics
-
+// ! Mapped types using Generics
 type User = {
 	id: number;
 	username: string;
@@ -149,34 +115,13 @@ type Point = {
 };
 
 type MakeOptionalProperties<T> = {
-	[K in keyof T]?: T[K];
-};
+	[K in keyof T]?: T[K]
+}
 
 type PartialUser = MakeOptionalProperties<User>;
 
-type PartialPoint = MakeOptionalProperties<Point>;
+const user: PartialUser = {
+	id: 1
+}
 
-type Employee = {
-	name: string;
-	age: number;
-	salary: number;
-};
-
-type Product = {
-	title: string;
-	price: number;
-	inStock: boolean;
-	rating: number;
-};
-
-type GetNumbericKeys<T> = {
-	[K in keyof T]: T[K] extends number ? K : never;
-}[keyof T];
-
-// name: never;
-// age: 'age';
-// salary: 'salary'
-
-
-type EmployeeNumericKeys = GetNumbericKeys<Employee>
-type ProductNumericKeys = GetNumbericKeys<Product>
+console.log(user)
