@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run Any TS File",
+            "program": "${file}",
+            // 👇 Use ts-node to execute the file directly
+            "runtimeExecutable": "ts-node",
+            // 👇 Add --files flag to make sure ts-node reads your tsconfig.json
+            "runtimeArgs": [
+                "--files"
+            ],
+            // ❌ Get rid of the preLaunchTask as it's not needed now
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+}
