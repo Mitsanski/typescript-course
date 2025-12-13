@@ -1,0 +1,15 @@
+MessageEncoder - interface with requirements for Encoded classes
+    - encodedMessage - receives unknown message and returns a string
+    - dencodedMessage - receives unknown message and returns a string
+    - totalProcessedCharacters - recieves type -> 'Encoded' | 'Decoded' | 'Both' and returns string  
+
+Language - interface with requirements for all languages
+    - getter for charset() - maybe we will have private _charset and works with set of strings
+    - isCompatibleToCharset - receives string message and returns a boolean
+
+Cipher - Generic interface with requirements for all Ciphers
+    - getter for language() - private _language field probably. Works with the generic type T
+    - encipher - recieves string text, returns string
+    - decipter - recieves string text, returns string
+
+caesarCipher - implementation of cipher
